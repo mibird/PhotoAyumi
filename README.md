@@ -13,4 +13,4 @@ Inspired by Chiru-san's Ayumi bot
 
 <img src="images/image.png">
 
-[emojis.md](PLan For emojis)
+[emojis.md]()
