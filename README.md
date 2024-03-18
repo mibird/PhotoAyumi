@@ -13,4 +13,4 @@ Inspired by Chiru-san's Ayumi bot
 
 <img src="images/image.png">
 
-[emojis.md]()
+[plan for emojijs leveling system](https://github.com/Stromy08/PhotoAyumi/blob/main/emoiis.md)
