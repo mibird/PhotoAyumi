@@ -10,4 +10,5 @@ Inspired by Chiru-san's Ayumi bot
 - [ ] Add emoji based progress/Xp bar
 
 
-<img src="image.png">
+<img src="images/image.pngimage.png">
+
