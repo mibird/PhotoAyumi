@@ -34,6 +34,7 @@ bot = discord.Bot()
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user}")
+    await bot.change_presence(status=discord.Status.idle, activity=discord.Game("Photography Simulator"))
     async def save_xp_periodically():
         await bot.wait_until_ready()
         while not bot.is_closed():
@@ -118,6 +119,5 @@ async def count_messages(ctx, user: discord.Member):
 async def levels(ctx): 
     await ctx.respond(f"# roles: \n <@&1207111158000263259> - level 10 \n <@&1207111456659742730> - level 20 \n <@&1207113962228023298> - level 30 \n <@&1207113104492863578> - level 40 \n <@&1207111046863785994> - level 60 \n <@&1207103055103926302> - level 80 \n <@&1207111660376948777> - level 90 \n <@&1205492582512332810> - level 100 \n <@&1207102955333882016>  - level 120 \n <@&1207112059796455434> - level 140")
 
-#--- Level Requirements ---#
 
 bot.run(PHOTOBOT_KEY)
