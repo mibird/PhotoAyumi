@@ -8,3 +8,6 @@ Inspired by Chiru-san's Ayumi bot
 - [ ] fix level message (embed)
 - [ ] fix saving system 
 - [ ] Add emoji based progress/Xp bar
+
+
+<img src="image.png">
