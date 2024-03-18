@@ -87,6 +87,20 @@ async def on_message(message):
     # Process commands after checking for role assignment
     # await bot.process_commands(message)
 
+emoji_map = {
+    0: "<:zero:1219277173014270052>",
+    1: "<:jeden:1219277208929959937>",
+    2: "<:dwa:1219277207550169129>",
+    3: "<:trzy:1219277704277528586>",
+    4: "<:cztery:1219277705300803680>",
+    5: "<:pi:1219277706558963756>",
+    6: "<:sze:1219277708467376128>",
+    7: "<:siedem:1219277709579128843>",
+    8: "<:osiem:1219277711172698113>",
+    9: "<:dziewi:1219277712384856254>",
+    10: "<:dziesi:1219277713525964860>"
+}
+
 @bot.command(description="Lets you see your level") 
 async def level(ctx): 
     user_id = ctx.author.id
@@ -95,8 +109,17 @@ async def level(ctx):
     level = int(levelf)
     prcntf = (levelf - level) * 1000
     prcnt = (int(prcntf)) / 10
-    await ctx.respond(f"You have {xp} xp \n That is level {level}! \n thats {prcnt}% of the way there to the next level")
-    
+    fullbarsf = prcnt / 10
+    fullbars = int(fullbarsf)
+    bars = "<:dziesi:1219277713525964860>" * fullbars
+    semibarf = prcnt - (fullbars*10)
+    semibar = int(semibarf)
+    selected_emoji = emoji_map[semibar]
+    emptybarsno = 10 - fullbars -1
+    emptybars = "<:zero:1219277173014270052>" * int(emptybarsno)
+    await ctx.respond(f"You have {xp} xp \n That is level {level}! \n thats {prcnt}% of the way there to the next level\n{bars + selected_emoji + emptybars}")
+
+
 @bot.command(description="Counts the total number of messages sent by a user across all channels in the server.")
 async def count_all_messages(ctx, user: discord.Member):
     message_count =  0
