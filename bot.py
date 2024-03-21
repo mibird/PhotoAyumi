@@ -4,6 +4,17 @@ import random
 import asyncio
 import os
 import math
+import threading
+
+def listen_for_console_input():
+    while True:
+        command = input()
+        if command == "save":
+            save_xp_to_file(user_message_counts)
+            print("XP saved.")
+
+threading.Thread(target=listen_for_console_input, daemon=True).start()
+
 
 user_message_counts = {}
 bot = discord.Bot()
