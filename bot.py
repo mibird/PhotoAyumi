@@ -4,6 +4,17 @@ import random
 import asyncio
 import os
 import math
+import threading
+
+def listen_for_console_input():
+    while True:
+        command = input()
+        if command == "save":
+            save_xp_to_file(user_message_counts)
+            print("XP saved.")
+
+threading.Thread(target=listen_for_console_input, daemon=True).start()
+
 
 user_message_counts = {}
 bot = discord.Bot()
@@ -119,6 +130,10 @@ async def level(ctx):
     emptybars = "<:zero:1219277173014270052>" * int(emptybarsno)
     await ctx.respond(f"You have {xp} xp \n That is level {level}! \n thats {prcnt}% of the way there to the next level\n{bars + selected_emoji + emptybars}")
 
+@bot.command(description="Rosey My beloved")
+async def roseymybeloved(ctx):
+    await ctx.respond("https://cdn.discordapp.com/attachments/901822735724982282/1220414098270060544/makesweet-qbmlty.gif?ex=660eda33&is=65fc6533&hm=64de5371050c63b28073cd9ce93e341c03146ffd24fd7fa1c34c84a60d6d4724&")
+    
 
 @bot.command(description="Counts the total number of messages sent by a user across all channels in the server.")
 async def count_all_messages(ctx, user: discord.Member):
