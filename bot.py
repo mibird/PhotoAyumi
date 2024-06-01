@@ -156,7 +156,41 @@ async def levels(ctx):
 async def top(ctx):
     sorted_users = sorted(user_message_counts.items(), key=lambda item: item[1], reverse=True)
     top_ten_users = sorted_users[:10]
-    top_ten_strings = [f"<@{user}>: {score}" for user, score in top_ten_users]
+    top_ten_strings = [f"{index+1}. <@{user}>: {score}" for index, (user, score) in enumerate(top_ten_users)]
     await ctx.respond("\n".join(top_ten_strings))
+
+
+@bot.command(description="Check position around the sender")
+async def closest(ctx):
+    user_id = str(ctx.author.id)  # Convert to string to ensure consistent type
+
+    user_message_counts = load_xp_from_file()
+    normalized_user_message_counts = {str(k): v for k, v in user_message_counts.items()}
+
+    if user_id in normalized_user_message_counts:
+        user_score = normalized_user_message_counts[user_id]
+        sorted_users = sorted(normalized_user_message_counts.items(), key=lambda item: item[1], reverse=True)
+
+        user_index = sorted_users.index((user_id, user_score))
+
+        await ctx.respond(f"You are ranked #{user_index + 1}.")
+
+        if user_index > 4:
+            above_users = sorted_users[user_index - 5:user_index]
+        else:
+            above_users = sorted_users[max(0, user_index - 5):]
+
+        below_users = sorted_users[user_index + 1:min(user_index + 6, len(sorted_users))]
+
+        # Correctly calculate positions for above and below users
+        above_positions = [user_index - i - 5 for i in range(len(above_users))]
+        below_positions = [user_index + i + 1 for i in range(len(below_users))]
+
+        above_text = "\n".join([f"{pos+1}. <@{user[0]}>: {user[1]}" for pos, user in zip(above_positions, above_users)])
+        below_text = "\n".join([f"{pos+1}. <@{user[0]}>: {user[1]}" for pos, user in zip(below_positions, below_users)])
+
+        await ctx.followup.send(f"{above_text}\n\n{user_index+1}. <@{user_id}>: {user_score}\n\n{below_text}")
+    else:
+        await ctx.respond(f"No data found for your ID.")
 
 bot.run(PHOTOBOT_KEY)
