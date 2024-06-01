@@ -6,10 +6,13 @@ Inspired by Chiru-san's Ayumi bot
 - [x] Upload Code
 - [ ] fix leveling system
 - [ ] fix level message (embed)
-- [ ] fix saving system
+- [x] fix saving system
 - [x] Create emojis for Progress bar
 - [x] Add emoji based progress/Xp bar
-
+- [x] add leaderboard
+- [ ] make it all embeds
+- [x] make it not ping
+- [ ] make it not break when someone on top uses command
 
 <img src="images/image.png">
 

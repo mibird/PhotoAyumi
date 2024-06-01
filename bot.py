@@ -5,6 +5,7 @@ import asyncio
 import os
 import math
 import threading
+from discord import AllowedMentions
 
 def listen_for_console_input():
     while True:
@@ -157,7 +158,7 @@ async def top(ctx):
     sorted_users = sorted(user_message_counts.items(), key=lambda item: item[1], reverse=True)
     top_ten_users = sorted_users[:10]
     top_ten_strings = [f"{index+1}. <@{user}>: {score}" for index, (user, score) in enumerate(top_ten_users)]
-    await ctx.respond("\n".join(top_ten_strings))
+    await ctx.respond("\n".join(top_ten_strings), allowed_mentions=AllowedMentions.none() )
 
 
 @bot.command(description="Check position around the sender")
@@ -187,7 +188,7 @@ async def closest(ctx):
         above_text = "\n".join([f"{pos+1}. <@{user[0]}>: {user[1]}" for pos, user in zip(above_positions, above_users)])
         below_text = "\n".join([f"{pos+1}. <@{user[0]}>: {user[1]}" for pos, user in zip(below_positions, below_users)])
 
-        await ctx.respond(f"{above_text}\n\n{user_index+1}. <@{user_id}>: {user_score}\n\n{below_text}")
+        await ctx.respond(content=f"{above_text}\n\n{user_index+1}. <@{user_id}>: {user_score}\n\n{below_text}", allowed_mentions=AllowedMentions.none())
     else:
         await ctx.respond(f"No data found for your ID.")
 
