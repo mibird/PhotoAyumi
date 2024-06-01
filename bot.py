@@ -130,32 +130,33 @@ async def level(ctx):
     emptybars = "<:zero:1219277173014270052>" * int(emptybarsno)
     await ctx.respond(f"You have {xp} xp \n That is level {level}! \n thats {prcnt}% of the way there to the next level\n{bars + selected_emoji + emptybars}")
 
-@bot.command(description="Rosey My beloved")
-async def roseymybeloved(ctx):
-    await ctx.respond("https://cdn.discordapp.com/attachments/901822735724982282/1220414098270060544/makesweet-qbmlty.gif?ex=660eda33&is=65fc6533&hm=64de5371050c63b28073cd9ce93e341c03146ffd24fd7fa1c34c84a60d6d4724&")
-    
+# @bot.command(description="Counts the total number of messages sent by a user across all channels in the server.")
+# async def count_all_messages(ctx, user: discord.Member):
+#     message_count =  0
+#     for channel in ctx.guild.channels:
+#         if isinstance(channel, discord.TextChannel):  # Ensure we're only counting messages in text channels
+#             async for message in channel.history(limit=None):  # Fetch all messages in the channel
+#                 if message.author == user:
+#                     message_count +=  1
+#     await ctx.respond(f"{user.name} has sent {message_count} messages across all channels in this server.")
 
-@bot.command(description="Counts the total number of messages sent by a user across all channels in the server.")
-async def count_all_messages(ctx, user: discord.Member):
-    message_count =  0
-    for channel in ctx.guild.channels:
-        if isinstance(channel, discord.TextChannel):  # Ensure we're only counting messages in text channels
-            async for message in channel.history(limit=None):  # Fetch all messages in the channel
-                if message.author == user:
-                    message_count +=  1
-    await ctx.respond(f"{user.name} has sent {message_count} messages across all channels in this server.")
-
-@bot.command(description="Counts the total number of messages sent by a user in the current channel.")
-async def count_messages(ctx, user: discord.Member):
-    message_count =  0
-    async for message in ctx.channel.history(limit=None):
-        if message.author == user:
-            message_count +=  1
-    await ctx.respond(f"{user.name} has sent {message_count} messages in this channel.")
+# @bot.command(description="Counts the total number of messages sent by a user in the current channel.")
+# async def count_messages(ctx, user: discord.Member):
+#     message_count =  0
+#     async for message in ctx.channel.history(limit=None):
+#         if message.author == user:
+#             message_count +=  1
+#     await ctx.respond(f"{user.name} has sent {message_count} messages in this channel.")
 
 @bot.command(description="preview levels") 
 async def levels(ctx): 
     await ctx.respond(f"# roles: \n <@&1207111158000263259> - level 10 \n <@&1207111456659742730> - level 20 \n <@&1207113962228023298> - level 30 \n <@&1207113104492863578> - level 40 \n <@&1207111046863785994> - level 60 \n <@&1207103055103926302> - level 80 \n <@&1207111660376948777> - level 90 \n <@&1205492582512332810> - level 100 \n <@&1207102955333882016>  - level 120 \n <@&1207112059796455434> - level 140")
 
+@bot.command(description="check leaderboard")
+async def top(ctx):
+    await ctx.respond(f"Work in progress")
+    await ctx.channel.send(f"here's a picture of a cat for you instead..")
+    await ctx.channel.send(f"https://cdn.discordapp.com/attachments/960236661084659813/1246558273105166426/dog-puppy-on-garden-royalty-free-image-1586966191.png?ex=665cd35c&is=665b81dc&hm=2c7ad122cea0cde1d54cbacd839fe773a1f172d255145604d5a50f00044449b1&")
+    
 
 bot.run(PHOTOBOT_KEY)
