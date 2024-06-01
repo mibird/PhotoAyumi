@@ -173,8 +173,6 @@ async def closest(ctx):
 
         user_index = sorted_users.index((user_id, user_score))
 
-        await ctx.respond(f"You are ranked #{user_index + 1}.")
-
         if user_index > 4:
             above_users = sorted_users[user_index - 5:user_index]
         else:
@@ -189,8 +187,10 @@ async def closest(ctx):
         above_text = "\n".join([f"{pos+1}. <@{user[0]}>: {user[1]}" for pos, user in zip(above_positions, above_users)])
         below_text = "\n".join([f"{pos+1}. <@{user[0]}>: {user[1]}" for pos, user in zip(below_positions, below_users)])
 
-        await ctx.followup.send(f"{above_text}\n\n{user_index+1}. <@{user_id}>: {user_score}\n\n{below_text}")
+        await ctx.respond(f"{above_text}\n\n{user_index+1}. <@{user_id}>: {user_score}\n\n{below_text}")
     else:
         await ctx.respond(f"No data found for your ID.")
 
 bot.run(PHOTOBOT_KEY)
+
+#await ctx.followup.send(f"{above_text}\n\n{user_index+1}. <@{user_id}>: {user_score}\n\n{below_text}")
