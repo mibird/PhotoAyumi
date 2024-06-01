@@ -154,9 +154,9 @@ async def levels(ctx):
 
 @bot.command(description="check leaderboard")
 async def top(ctx):
-    await ctx.respond(f"Work in progress")
-    await ctx.channel.send(f"here's a picture of a cat for you instead..")
-    await ctx.channel.send(f"https://cdn.discordapp.com/attachments/960236661084659813/1246558273105166426/dog-puppy-on-garden-royalty-free-image-1586966191.png?ex=665cd35c&is=665b81dc&hm=2c7ad122cea0cde1d54cbacd839fe773a1f172d255145604d5a50f00044449b1&")
-    
+    sorted_users = sorted(user_message_counts.items(), key=lambda item: item[1], reverse=True)
+    top_ten_users = sorted_users[:10]
+    top_ten_strings = [f"<@{user}>: {score}" for user, score in top_ten_users]
+    await ctx.respond("\n".join(top_ten_strings))
 
 bot.run(PHOTOBOT_KEY)
