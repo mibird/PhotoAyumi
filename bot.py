@@ -6,6 +6,7 @@ import os
 import math
 import threading
 from discord import AllowedMentions
+import random as rand
 
 def listen_for_console_input():
     while True:
@@ -96,6 +97,10 @@ async def on_message(message):
             else:
                 print(f"Role for level {required_level} not found.")
 
+#   --- NOT WORKING ---
+    if message.content == "test":
+        await message.respond("dawihkjs")
+
     # Process commands after checking for role assignment
     # await bot.process_commands(message)
 
@@ -151,7 +156,16 @@ async def level(ctx):
 
 @bot.command(description="preview levels") 
 async def levels(ctx): 
-    await ctx.respond(f"# roles: \n <@&1207111158000263259> - level 10 \n <@&1207111456659742730> - level 20 \n <@&1207113962228023298> - level 30 \n <@&1207113104492863578> - level 40 \n <@&1207111046863785994> - level 60 \n <@&1207103055103926302> - level 80 \n <@&1207111660376948777> - level 90 \n <@&1205492582512332810> - level 100 \n <@&1207102955333882016>  - level 120 \n <@&1207112059796455434> - level 140")
+    await ctx.respond(f"# roles: \n <@&12071111580002635259> - level 10 \n <@&1207111456659742730> - level 20 \n <@&1207113962228023298> - level 30 \n <@&1207113104492863578> - level 40 \n <@&1207111046863785994> - level 60 \n <@&1207103055103926302> - level 80 \n <@&1207111660376948777> - level 90 \n <@&1205492582512332810> - level 100 \n <@&1207102955333882016>  - level 120 \n <@&1207112059796455434> - level 140")
+
+@bot.command(description="Throw those gypsies back to mexico!")
+async def deport(ctx, arg):
+    await ctx.respond(f'Omw, {arg} will be deported in 2-3 business days.')
+
+@bot.command(description="check how good of a pair 2 people here make!")
+async def ship(ctx, user1: discord.Member, user2: discord.Member):
+    shippercent = random.randint(0, 100)
+    await ctx.respond(f"{user1.mention} and {user2.mention} have a {shippercent}% compatibility!")
 
 @bot.command(description="check leaderboard")
 async def top(ctx):
