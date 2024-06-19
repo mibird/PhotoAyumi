@@ -7,6 +7,7 @@ import math
 import threading
 from discord import AllowedMentions
 import random as rand
+import json
 
 def listen_for_console_input():
     while True:
@@ -17,6 +18,18 @@ def listen_for_console_input():
 
 threading.Thread(target=listen_for_console_input, daemon=True).start()
 
+###--- SHIP COMMANDS ---###
+def read_ship_data():
+    try:
+        with open('ship_data.json', 'r') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return {}
+
+def write_ship_data(data):
+    with open('ship_data.json', 'w') as file:
+        json.dump(data, file, indent=4)
+###--- END SHIP COMMANDS ---###
 
 user_message_counts = {}
 bot = discord.Bot()
@@ -164,7 +177,17 @@ async def deport(ctx, arg):
 
 @bot.command(description="check how good of a pair 2 people here make!")
 async def ship(ctx, user1: discord.Member, user2: discord.Member):
-    shippercent = random.randint(0, 100)
+    ship_data = read_ship_data()
+    user_pair = tuple(sorted([user1.id, user2.id]))  # Use a tuple with sorted user IDs to ensure consistency
+    user_pair_str = f"{user_pair[0]}-{user_pair[1]}"  # Convert the tuple to a string
+
+    if user_pair_str in ship_data:
+        shippercent = ship_data[user_pair_str]
+    else:
+        shippercent = random.randint(0, 100)
+        ship_data[user_pair_str] = shippercent
+        write_ship_data(ship_data)
+
     await ctx.respond(f"{user1.mention} and {user2.mention} have a {shippercent}% compatibility!")
 
 @bot.command(description="check leaderboard")
