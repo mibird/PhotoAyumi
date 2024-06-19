@@ -8,7 +8,6 @@ import threading
 from discord import AllowedMentions
 import random as rand
 import json
-from PIL import image
 
 def listen_for_console_input():
     while True:
