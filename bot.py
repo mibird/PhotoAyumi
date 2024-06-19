@@ -8,7 +8,8 @@ import threading
 from discord import AllowedMentions
 import random as rand
 import json
-from PIL import image
+from PIL import Image, ImageDraw, ImageFont
+import requests
 
 def listen_for_console_input():
     while True:
@@ -26,10 +27,30 @@ def read_ship_data():
             return json.load(file)
     except FileNotFoundError:
         return {}
+    except json.JSONDecodeError:
+        # Handle corrupted JSON file
+        print("Corrupted JSON file. Initializing a new one.")
+        return {}
 
 def write_ship_data(data):
     with open('ship_data.json', 'w') as file:
         json.dump(data, file, indent=4)
+
+# Function to fetch and save avatars using requests
+def save_avatars(user1: discord.Member, user2: discord.Member):
+    # Fetch and save avatar for user1
+    if user1.avatar_url:
+        response1 = requests.get(user1.avatar_url)
+        if response1.status_code == 200:
+            with open('pfp_1.png', 'wb') as f1:
+                f1.write(response1.content)
+    
+    # Fetch and save avatar for user2
+    if user2.avatar_url:
+        response2 = requests.get(user2.avatar_url)
+        if response2.status_code == 200:
+            with open('pfp_2.png', 'wb') as f2:
+                f2.write(response2.content)
 ###--- END SHIP COMMANDS ---###
 
 user_message_counts = {}
