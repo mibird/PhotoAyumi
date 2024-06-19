@@ -171,9 +171,8 @@ async def ship(ctx, user1: discord.Member, user2: discord.Member):
 async def top(ctx):
     sorted_users = sorted(user_message_counts.items(), key=lambda item: item[1], reverse=True)
     top_ten_users = sorted_users[:10]
-    top_ten_strings = [f"{index+1}. <@{user}>: {score}" for index, (user, score) in enumerate(top_ten_users)]
+    top_ten_strings = [f"{index+1}. <@{user}>: {int(0.3 * math.sqrt (score))}" for index, (user, score) in enumerate(top_ten_users)]
     await ctx.respond("\n".join(top_ten_strings), allowed_mentions=AllowedMentions.none() )
-
 
 @bot.command(description="Check position around the sender")
 async def closest(ctx):
